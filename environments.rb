@@ -4,6 +4,10 @@ end
 
 configure :production, :development do
  db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+ 
+configure do
+    set :protection, except: [:frame_options]
+end
 
  ActiveRecord::Base.establish_connection(
    :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
